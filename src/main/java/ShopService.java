@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class ShopService {
     private ProductRepo productRepo = new ProductRepo();
@@ -19,9 +22,31 @@ public class ShopService {
         return orderRepo.addOrder(newOrder);
     }
 
+    public Order updateOrder(String orderId, OrderStatus newStatus) {
+        Optional<Order> order = orderRepo.getOrderById(orderId);
+        if (order.isEmpty()) {
+            throw new NoSuchOrderException("Order with id: " + orderId + " not found.");
+        }
+
+        Order newOrder = order.get().withStatus(newStatus);
+        orderRepo.removeOrder(orderId);
+        orderRepo.addOrder(newOrder);
+
+        return newOrder;
+    }
+
     public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
         return orderRepo.getOrders().stream().filter(
                 order -> order.getStatus() == orderStatus
         ).toList();
+    }
+
+    public Order getOrder(String orderId) {
+        Optional<Order> order = orderRepo.getOrderById(orderId);
+        if (order.isEmpty()) {
+            throw new NoSuchOrderException("Order with id: " + orderId + " not found.");
+        }
+
+        return order.get();
     }
 }

@@ -36,10 +36,10 @@ class ShopServiceTest {
     }
 
     @Test
-    void addOrderTest_whenInvalidProductId_expectNull() {
+    void addOrderTest_whenInvalidProductId_expectException() {
         //GIVEN
         ShopService shopService = new ShopService();
-        List<String> productsIds = List.of("1", "2");
+        List<String> productsIds = List.of("1", "3");
 
         //WHEN
 
@@ -47,6 +47,53 @@ class ShopServiceTest {
         assertThrowsExactly(
                 NoSuchProductException.class,
                 () -> shopService.addOrder(productsIds)
+        );
+    }
+
+    @Test
+    void updateOrderTest_existentOrder() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "2");
+        Order order = shopService.addOrder(productsIds);
+
+        //WHEN
+        Order newOrder = shopService.updateOrder(order.getId(), OrderStatus.IN_DELIVERY);
+
+        //THEN
+        assertEquals(OrderStatus.IN_DELIVERY, newOrder.getStatus());
+        assertEquals(order.getId(), newOrder.getId());
+        assertEquals(order.getProducts(), newOrder.getProducts());
+    }
+
+    @Test
+    void updateOrderTest_orderReplaced() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "2");
+        Order order = shopService.addOrder(productsIds);
+
+        //WHEN
+        Order expected = shopService.updateOrder(order.getId(), OrderStatus.IN_DELIVERY);
+
+        //THEN
+        Order actual = shopService.getOrder(order.getId());
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void updateOrderTest_notExistentOrder() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "2");
+        shopService.addOrder(productsIds);
+
+        //WHEN
+
+        //THEN
+        assertThrowsExactly(
+                NoSuchOrderException.class,
+                () -> shopService.updateOrder("-1", OrderStatus.IN_DELIVERY)
         );
     }
 

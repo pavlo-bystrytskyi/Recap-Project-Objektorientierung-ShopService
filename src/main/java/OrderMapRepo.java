@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderMapRepo implements OrderRepo{
     private Map<String, Order> orders = new HashMap<>();
@@ -12,8 +9,8 @@ public class OrderMapRepo implements OrderRepo{
     }
 
     @Override
-    public Order getOrderById(String id) {
-        return orders.get(id);
+    public Optional<Order> getOrderById(String id) {
+        return Optional.ofNullable(orders.get(id));
     }
 
     @Override
