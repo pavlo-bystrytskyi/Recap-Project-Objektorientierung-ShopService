@@ -28,7 +28,12 @@ public class TransactionsReader {
         if (arguments.length == 0) {
             throw new IllegalStateException("Empty line");
         }
-        Operation operation = Operation.valueOf(arguments[0]);
+        Operation operation = null;
+        try {
+            operation = Operation.valueOf(arguments[0]);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException("Unknown operation: " + arguments[0]);
+        }
         String[] methodArguments = Arrays.copyOfRange(arguments, 1, arguments.length);
         switch (operation) {
             case addOrder:
@@ -40,8 +45,6 @@ public class TransactionsReader {
             case printOrders:
                 this.printOrders(methodArguments);
                 break;
-            default:
-                throw new IllegalStateException("Unknown operation: " + operation);
         }
     }
 
