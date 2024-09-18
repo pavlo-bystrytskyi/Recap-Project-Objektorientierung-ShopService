@@ -1,9 +1,8 @@
 import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ShopService {
@@ -52,5 +51,20 @@ public class ShopService {
         }
 
         return order.get();
+    }
+
+    public Map<OrderStatus, Order> getOldestOrderPerStatus() {
+        return orderRepo
+                .getOrders()
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Order::getStatus,
+                                Collectors.collectingAndThen(
+                                        Collectors.minBy(Comparator.comparing(Order::getPlacedAt)),
+                                        optionalOrder -> optionalOrder.orElse(null)
+                                )
+                        )
+                );
     }
 }

@@ -7,8 +7,11 @@ public class Main {
         IdService idService = new IdService();
         ShopService shopService = new ShopService(productRepo, orderRepo, idService);
 
-        shopService.addOrder(List.of("1"));
-        shopService.addOrder(List.of("2"));
-        shopService.addOrder(List.of("1", "2"));
+        Order firstOrder = shopService.addOrder(List.of("1"));
+        Order secondOrder = shopService.addOrder(List.of("2"));
+        Order thirdOrder = shopService.addOrder(List.of("1", "2"));
+
+        shopService.updateOrder(firstOrder.getId(), OrderStatus.IN_DELIVERY);
+        System.out.println(shopService.getOldestOrderPerStatus());
     }
 }

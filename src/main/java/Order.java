@@ -9,10 +9,10 @@ import java.util.List;
 @Builder
 @Data
 public class Order {
-    final @NonNull String id;
-    final @NonNull List<Product> products;
+    final private @NonNull String id;
+    final private @NonNull List<Product> products;
     @Builder.Default
-    final @NonNull OrderStatus status = OrderStatus.PROCESSING;
+    final private @NonNull OrderStatus status = OrderStatus.PROCESSING;
     @Builder.Default
-    final @NonNull Instant placedAt = Instant.now();
+    final private @NonNull Instant placedAt = Instant.now();
 }
