@@ -1,3 +1,5 @@
+package sales.shop;
+
 import java.util.*;
 
 public class OrderMapRepo implements OrderRepo{

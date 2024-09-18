@@ -1,3 +1,6 @@
+package sales.shop;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ class OrderMapRepoTest {
         Product product1 = new Product("1", "Apfel");
         Order expected = Order.builder().id("1").products(List.of(product1)).build();
 
-        assertEquals(actual, expected);
+        Assertions.assertEquals(actual, expected);
     }
 
     @Test
@@ -59,8 +62,8 @@ class OrderMapRepoTest {
         //THEN
         Product product1 = new Product("1", "Apfel");
         Order expected = Order.builder().id("1").products(List.of(product1)).build();
-        assertEquals(actual, expected);
-        assertEquals(repo.getOrderById("1").get(), expected);
+        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(repo.getOrderById("1").get(), expected);
     }
 
     @Test
@@ -72,6 +75,6 @@ class OrderMapRepoTest {
         repo.removeOrder("1");
 
         //THEN
-        assertTrue(repo.getOrderById("1").isEmpty());
+        Assertions.assertTrue(repo.getOrderById("1").isEmpty());
     }
 }

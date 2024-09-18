@@ -1,3 +1,6 @@
+package sales.shop;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,8 +21,8 @@ class ShopServiceTest {
 
         //THEN
         Order expected = Order.builder().id("-1").products(List.of(new Product("1", "Apfel"))).build();
-        assertEquals(expected.getStatus(), actual.getStatus());
-        assertEquals(expected.getProducts(), actual.getProducts());
+        Assertions.assertEquals(expected.getStatus(), actual.getStatus());
+        Assertions.assertEquals(expected.getProducts(), actual.getProducts());
         assertNotNull(expected.getId());
     }
 
@@ -33,7 +36,7 @@ class ShopServiceTest {
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
-        assertEquals(OrderStatus.PROCESSING, actual.getStatus());
+        Assertions.assertEquals(OrderStatus.PROCESSING, actual.getStatus());
     }
 
     @Test
@@ -62,9 +65,9 @@ class ShopServiceTest {
         Order newOrder = shopService.updateOrder(order.getId(), OrderStatus.IN_DELIVERY);
 
         //THEN
-        assertEquals(OrderStatus.IN_DELIVERY, newOrder.getStatus());
-        assertEquals(order.getId(), newOrder.getId());
-        assertEquals(order.getProducts(), newOrder.getProducts());
+        Assertions.assertEquals(OrderStatus.IN_DELIVERY, newOrder.getStatus());
+        Assertions.assertEquals(order.getId(), newOrder.getId());
+        Assertions.assertEquals(order.getProducts(), newOrder.getProducts());
     }
 
     @Test
@@ -79,7 +82,7 @@ class ShopServiceTest {
 
         //THEN
         Order actual = shopService.getOrder(order.getId());
-        assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test

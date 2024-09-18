@@ -1,3 +1,5 @@
+package sales.shop;
+
 import lombok.*;
 
 import java.time.Instant;

@@ -1,3 +1,5 @@
+package sales.shop;
+
 import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
@@ -15,7 +17,7 @@ public class ShopService {
         for (String productId : productIds) {
             Optional<Product> productToOrder = productRepo.getProductById(productId);
             if (productToOrder.isEmpty()) {
-                throw new NoSuchProductException("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
+                throw new NoSuchProductException("sales.shop.Product mit der Id: " + productId + " konnte nicht bestellt werden!");
             }
             products.add(productToOrder.get());
         }
@@ -28,7 +30,7 @@ public class ShopService {
     public Order updateOrder(String orderId, OrderStatus newStatus) {
         Optional<Order> order = orderRepo.getOrderById(orderId);
         if (order.isEmpty()) {
-            throw new NoSuchOrderException("Order with id: " + orderId + " not found.");
+            throw new NoSuchOrderException("sales.shop.Order with id: " + orderId + " not found.");
         }
 
         Order newOrder = order.get().withStatus(newStatus);
@@ -47,10 +49,14 @@ public class ShopService {
     public Order getOrder(String orderId) {
         Optional<Order> order = orderRepo.getOrderById(orderId);
         if (order.isEmpty()) {
-            throw new NoSuchOrderException("Order with id: " + orderId + " not found.");
+            throw new NoSuchOrderException("sales.shop.Order with id: " + orderId + " not found.");
         }
 
         return order.get();
+    }
+
+    public List<Order> getOrders() {
+        return orderRepo.getOrders();
     }
 
     public Map<OrderStatus, Order> getOldestOrderPerStatus() {

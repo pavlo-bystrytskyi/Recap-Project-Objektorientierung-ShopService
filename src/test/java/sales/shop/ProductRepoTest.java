@@ -1,6 +1,8 @@
+package sales.shop;
+
+import org.junit.jupiter.api.Assertions;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +34,7 @@ class ProductRepoTest {
 
         //THEN
         Product expected = new Product("1", "Apfel");
-        assertEquals(actual, expected);
+        Assertions.assertEquals(actual, expected);
     }
 
     @org.junit.jupiter.api.Test
@@ -46,8 +48,8 @@ class ProductRepoTest {
 
         //THEN
         Product expected = new Product("3", "Banane");
-        assertEquals(actual, expected);
-        assertEquals(repo.getProductById("3").get(), expected);
+        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(repo.getProductById("3").get(), expected);
     }
 
     @org.junit.jupiter.api.Test
@@ -59,6 +61,6 @@ class ProductRepoTest {
         repo.removeProduct("1");
 
         //THEN
-        assertTrue(repo.getProductById("1").isEmpty());
+        Assertions.assertTrue(repo.getProductById("1").isEmpty());
     }
 }
