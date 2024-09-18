@@ -6,22 +6,13 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"placedAt"})
 @With
+@Builder
 @Data
 public class Order {
     final @NonNull String id;
     final @NonNull List<Product> products;
-    final @NonNull OrderStatus status;
-    final @NonNull Instant placedAt;
-
-    public Order(String id, List<Product> products) {
-        this(id, products, OrderStatus.PROCESSING, Instant.now());
-    }
-
-    public Order(String id, List<Product> products, Instant placedAt) {
-        this(id, products, OrderStatus.PROCESSING, placedAt);
-    }
-
-    public Order(String id, List<Product> products, OrderStatus orderStatus) {
-        this(id, products, orderStatus, Instant.now());
-    }
+    @Builder.Default
+    final @NonNull OrderStatus status = OrderStatus.PROCESSING;
+    @Builder.Default
+    final @NonNull Instant placedAt = Instant.now();
 }
