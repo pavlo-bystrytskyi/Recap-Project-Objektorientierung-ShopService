@@ -8,8 +8,8 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class TransactionsReader {
-    private ShopService shopService;
-    private Map<String, String> orderAliasMap = new HashMap<>();
+    private final ShopService shopService;
+    private final Map<String, String> orderAliasMap = new HashMap<>();
 
     public TransactionsReader(ShopService shopService) {
         this.shopService = shopService;
