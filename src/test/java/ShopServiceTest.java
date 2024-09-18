@@ -59,7 +59,6 @@ class ShopServiceTest {
         shopService.addOrder(productsIds);
 
         //THEN
-
         List<Order> actual = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
         assertEquals(2, actual.size());
     }
