@@ -1,7 +1,17 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+
 import java.util.List;
 
-public record Order(
-        String id,
-        List<Product> products
-) {
+@AllArgsConstructor
+@Data
+public class Order {
+        final @NonNull String id;
+        final @NonNull List<Product> products;
+        @NonNull OrderStatus status;
+
+        public Order(String id, List<Product> products) {
+            this(id, products, OrderStatus.PROCESSING);
+        }
 }
