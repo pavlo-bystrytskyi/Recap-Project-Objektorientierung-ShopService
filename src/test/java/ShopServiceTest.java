@@ -47,4 +47,47 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void getOrdersByStatus_ordersExist() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+
+        //WHEN
+        shopService.addOrder(productsIds);
+        shopService.addOrder(productsIds);
+
+        //THEN
+        List<Order> actual = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
+        assertEquals(2, actual.size());
+    }
+
+    @Test
+    void getOrdersByStatus_ordersWithSuchStatusExist() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+
+        //WHEN
+        shopService.addOrder(productsIds);
+        shopService.addOrder(productsIds);
+
+        //THEN
+        List<Order> actual = shopService.getOrdersByStatus(OrderStatus.IN_DELIVERY);
+        assertEquals(0, actual.size());
+    }
+
+
+    @Test
+    void getOrdersByStatus_noOrdersExist() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+
+        //WHEN
+
+        //THEN
+        List<Order> actual = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
+        assertEquals(0, actual.size());
+    }
 }
