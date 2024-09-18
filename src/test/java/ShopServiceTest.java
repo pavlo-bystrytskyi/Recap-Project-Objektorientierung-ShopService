@@ -9,7 +9,7 @@ class ShopServiceTest {
     @Test
     void addOrderTest() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -25,7 +25,7 @@ class ShopServiceTest {
     @Test
     void addOrderTest_defaultStatus() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -38,7 +38,7 @@ class ShopServiceTest {
     @Test
     void addOrderTest_whenInvalidProductId_expectException() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1", "3");
 
         //WHEN
@@ -53,7 +53,7 @@ class ShopServiceTest {
     @Test
     void updateOrderTest_existentOrder() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1", "2");
         Order order = shopService.addOrder(productsIds);
 
@@ -69,7 +69,7 @@ class ShopServiceTest {
     @Test
     void updateOrderTest_orderReplaced() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1", "2");
         Order order = shopService.addOrder(productsIds);
 
@@ -84,7 +84,7 @@ class ShopServiceTest {
     @Test
     void updateOrderTest_notExistentOrder() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1", "2");
         shopService.addOrder(productsIds);
 
@@ -100,7 +100,7 @@ class ShopServiceTest {
     @Test
     void getOrdersByStatus_ordersExist() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -115,7 +115,7 @@ class ShopServiceTest {
     @Test
     void getOrdersByStatus_ordersWithSuchStatusExist() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -131,7 +131,7 @@ class ShopServiceTest {
     @Test
     void getOrdersByStatus_noOrdersExist() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ShopService shopService = new ShopService(new ProductRepo(), new OrderMapRepo());
 
         //WHEN
 
